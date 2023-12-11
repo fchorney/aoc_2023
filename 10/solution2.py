@@ -235,7 +235,7 @@ class Network:
                 return "X"
 
     def __str__(self) -> str:
-        chunk = False
+        chunk = True
 
         output_data = deepcopy(self.data)
 
@@ -258,7 +258,7 @@ class Network:
             location = self.location or self.start_location
 
             if location:
-                width = 3
+                width = 5
                 low_x = max(0, location.x - width)
                 high_x = min(len(output_data[0]) - 1, location.x + width)
                 low_y = max(0, location.y - width)
@@ -281,7 +281,7 @@ def main(args: Optional[Sequence[str]] = None) -> None:
     with input_path.open() as f:
         network = Network(f.read())
 
-    print(str(network))
+    # print(str(network))
 
     inside = network.find_inside()
     ic(inside)

@@ -2,6 +2,8 @@ import argparse
 from pathlib import Path
 from typing import Optional, Sequence
 
+from icecream import ic
+
 
 def main(args: Optional[Sequence[str]] = None) -> None:
     pargs = parse_args(args)
