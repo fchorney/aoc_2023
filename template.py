@@ -10,7 +10,7 @@ def main(args: Optional[Sequence[str]] = None) -> None:
     input_path = pargs.input_path
 
     with input_path.open() as f:
-        for line in f.readlines():
+        for line in map(str.strip, f.readlines()):
             pass
 
 
