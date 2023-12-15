@@ -101,7 +101,8 @@ def main(args: Optional[Sequence[str]] = None) -> None:
 
     print(print_platform(platform))
 
-    platform = cycle_platform(platform, 1_000_000_000, detect=False)
+    # It was determined that cycle 1_000_000_000 would be the same result as cycle 136
+    platform = cycle_platform(platform, 136, detect=False)
 
     print("\n\n")
     print(print_platform(platform))
