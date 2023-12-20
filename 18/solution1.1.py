@@ -1,15 +1,15 @@
 import argparse
 import re
-import sys
-from collections import defaultdict
 from dataclasses import dataclass
 from enum import Enum
 from pathlib import Path
 from typing import Optional, Sequence
-from extra.convert_hex_xterm import rgb2short
+
 from icecream import ic
 
+
 INPUT_RE = re.compile(r"(?P<direction>[UDLR]) (?P<count>\d+) \(#(?P<color>[0-9a-z]+)\)")
+
 
 class Direction(Enum):
     U = 0
@@ -17,20 +17,25 @@ class Direction(Enum):
     D = 2
     L = 3
 
+
 @dataclass
 class Instruction:
     direction: Direction
     count: int
     color: str
 
+
 class HoleType(Enum):
     EDGE = 0
     EMPTY = 1
     INNER = 2
+
+
 @dataclass
 class Hole:
     _type: HoleType
     color: str | None
+
 
 @dataclass
 class Coordinate:
@@ -43,6 +48,7 @@ class Coordinate:
             col = self.col + other.col
             return Coordinate(row, col)
         return NotImplemented
+
 
 class Trench:
     def __init__(self):
@@ -77,6 +83,7 @@ class Trench:
             area -= vertices[j].row * vertices[i].col
         area = abs(area) / 2
         return int(area) + self.perimeter // 2 + 1
+
 
 def main(args: Optional[Sequence[str]] = None) -> None:
     pargs = parse_args(args)
@@ -116,4 +123,4 @@ def parse_args(args: Optional[Sequence[str]] = None) -> argparse.Namespace:
 
 
 if __name__ == "__main__":
-    main(['input'])
+    main(["input"])
