@@ -122,7 +122,6 @@ class Machine():
         self.rx_inputs: dict[str, dict] = {}
         for input in rx_parent.inputs.keys():
             self.rx_inputs[input] = {"hash": hash(self.modules[input]), "count": 0, "cycled": False}
-        print(self.rx_inputs)
 
         self.module_hash = self.hash_modules()
         ic(self.module_hash)
@@ -159,12 +158,9 @@ class Machine():
                     if packet.pulse == Pulse.HIGH:
                         self.rx_inputs[packet.sender]["cycled"] = True
                         self.rx_inputs[packet.sender]['count'] = loops
-                        print(f"We Cycled: {packet.sender}: {self.rx_inputs[packet.sender]['count']}")
 
                 if all(x["cycled"] for x in self.rx_inputs.values()):
-                    print(self.rx_inputs)
                     x = math.lcm(*list(x["count"] + 1 for x in self.rx_inputs.values()))
-                    print(f"LCM LETS GO: {x}")
                     return x
 
                 if packet.pulse == Pulse.HIGH:
@@ -231,16 +227,6 @@ def parse_args(args: Optional[Sequence[str]] = None) -> argparse.Namespace:
 
 
 if __name__ == "__main__":
-    main(["input", "-q"])
-
-    #start = time.monotonic()
-    #assert main(['testinput1', '-q']) == 32_000_000
-    #print(f"testinput1: {timedelta(seconds=time.monotonic() - start)}")
-
-    #start = time.monotonic()
-    #assert main(['testinput2', '-q']) == 11_687_500
-    #print(f"testinput2: {timedelta(seconds=time.monotonic() - start)}")
-
-    #start = time.monotonic()
-    #assert main(['input', '-q']) == 825896364
-    #print(f"input: {timedelta(seconds=time.monotonic() - start)}")
+    start = time.monotonic()
+    assert main(["input", "-q"]) == 243566897206981
+    print(f"input: {timedelta(seconds=time.monotonic() - start)}")
